@@ -7,6 +7,7 @@ const furnitureSchema = new mongoose.Schema({
   keywords: [String],
   materials: [
     {
+      
       type: String,
       supplier: String,
     },
