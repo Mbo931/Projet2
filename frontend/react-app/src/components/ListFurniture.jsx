@@ -11,7 +11,7 @@ const ListFurniture = () => {
     axios.get('http://localhost:3000')
       .then(() => {
         // Le backend est disponible, procédez à la récupération des meubles
-        axios.get('http://localhost:3000/api/furniture')
+        axios.get('http://localhost:3000/api')
           .then(response => {
             setFurnitureList(response.data);
           })
