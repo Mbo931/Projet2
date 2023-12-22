@@ -3,6 +3,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const app=express();
 
+
+
 mongoose.connect('mongodb+srv://cluster0.sfmkbvh.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority',
 { useNewUrlParser: true,
   useUnifiedTopology: true })

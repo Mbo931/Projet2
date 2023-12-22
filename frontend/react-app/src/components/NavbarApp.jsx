@@ -6,12 +6,12 @@ import { Link } from "react-router-dom";
 function NavbarApp() {
   return (
     <>
-    <ul>
-      <li>
-        <Link to="/">Home</Link>
+    <ul className='bg-slate-600'>
+      <li >
+        <Link to="/" >Home</Link>
       </li>
       <li>
-        <Link to="/login">LogIn</Link>
+        <Link to="/login">Login</Link>
       </li>
     </ul>
     </>

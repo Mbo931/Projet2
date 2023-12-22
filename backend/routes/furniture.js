@@ -18,6 +18,6 @@ router.put('/furniture/:id', furnitureController.furnitureUpdate);
 router.delete('/furniture/:id', furnitureController.furnitureDelete);
 
 // Route pour mettre à jour uniquement le nombre de fois que le meuble a été réalisé
-router.put('/:id/update-times-built', furnitureController.furnitureUpdateTimesBuilt);
+router.put('/furniture/:id/update-times-built', furnitureController.furnitureUpdateTimesBuilt);
 
 module.exports = router;

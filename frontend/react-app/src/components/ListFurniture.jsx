@@ -1,33 +1,57 @@
-// Exemple de composant React qui utilise l'API pour récupérer la liste des meubles
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-import React, { useEffect, useState } from 'react';
-import api from '../service/api';
-
-const FurnitureList = () => {
+const ListFurniture = () => {
   const [furnitureList, setFurnitureList] = useState([]);
+  const [error, setError] = useState(null);
+  const [isBackendAvailable, setIsBackendAvailable] = useState(true); // Nouvelle variable d'état
 
   useEffect(() => {
-    // Appel à l'API pour récupérer la liste des meubles
-    api.get('/furniture')
-      .then(response => {
-        setFurnitureList(response.data);
+    // Effect pour vérifier la disponibilité du backend
+    axios.get('http://localhost:3000')
+      .then(() => {
+        // Le backend est disponible, procédez à la récupération des meubles
+        axios.get('http://localhost:3000/api/furniture')
+          .then(response => {
+            setFurnitureList(response.data);
+          })
+          .catch(error => {
+            if (error.response && error.response.status === 404) {
+              // Handle 404 error by setting furnitureList to an empty array
+              setFurnitureList([]);
+            } else {
+              // Handle other errors
+              setError(error.message);
+            }
+          });
       })
-      .catch(error => {
-        console.error('Erreur lors de la récupération de la liste des meubles :', error);
+      .catch(() => {
+        // Le backend n'est pas disponible
+        setIsBackendAvailable(false);
       });
-  }, []);
+  }, []); // Empty dependency array ensures the effect runs only once on mount
 
-  // Affichage de la liste des meubles dans le composant
   return (
     <div>
-      <h2>Liste des Meubles</h2>
-      <ul>
-        {furnitureList.map(furniture => (
-          <li key={furniture._id}>{furniture.name}</li>
-        ))}
-      </ul>
+        <h1>Liste des Meubles</h1>
+      {isBackendAvailable ? ( // Condition pour vérifier la disponibilité du backend
+        <>
+          {error ? (
+            <p>Erreur lors de la récupération de la liste des meubles : {error}</p>
+          ) : (
+            <ul>
+              {furnitureList.map(furniture => (
+                <li key={furniture.id}>{furniture.name}</li>
+              ))}
+              {furnitureList.length === 0 && <p>Aucun meuble disponible.</p>}
+            </ul>
+          )}
+        </>
+      ) : (
+        <p>Le backend n'est pas disponible. Veuillez réessayer plus tard.</p>
+      )}
     </div>
   );
 };
 
-export default FurnitureList;
+export default ListFurniture;
