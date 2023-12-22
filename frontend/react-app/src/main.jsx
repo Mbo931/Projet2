@@ -8,6 +8,7 @@ import Home from './views/Home.jsx';
 import App from './App.jsx'
 import './index.css'
 import Login from './views/Login.jsx';
+import AdminDashborard from './views/AdminDashboard.jsx';
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,11 @@ const router = createBrowserRouter([
   },
   {
     path:"/login",
-    element: <Login/>
+    element: <Login/>,
+  },
+  {
+    path:"/admin",
+    element: <AdminDashborard/>
   }
 ]);
 
